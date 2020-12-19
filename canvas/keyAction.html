@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>canvas-test</title>
+</head>
+<body>
+    <canvas id="xinleaf" width="500px" height="500px" style="border:1px solid #000;"></canvas>
+    <span id="text"></span>
+</body>
+<script src="./utils/tools.js"></script>
+<script>
+    window.onload = function () {
+        var cnv = $$('xinleaf');
+        var cxt = cnv.getContext('2d');
+        var showText = $$('text');
+        var mouse = tools.getMouse(cnv);
+        var key = tools.getKey()
+        console.log('init-key:', key);
+        drawBall(200,200);
+        // 初始化运动参数
+        var x = 100;
+        var y = 100;
+        // 保证小球运动
+        window.addEventListener('keydown', function (e) {
+            console.log('index-key:', key)
+            // 清除整个画布，便于重新绘制
+            cxt.clearRect(0, 0, cnv.width, cnv.height);
+            // 判断小球方向
+            switch(key.direction) {
+                case 'up':
+                    y -= 2;
+                    drawBall(x, y);
+                    break;
+                case 'down':
+                    y += 2;
+                    drawBall(x, y);
+                    break;
+                case 'left':
+                    x -= 2;
+                    drawBall(x, y);
+                    break;
+                case 'right':
+                    x += 2;
+                    drawBall(x, y);
+                    break;
+                default:
+                    drawBall(x, y);
+            }
+        }, false)
+        cnv.addEventListener('mousemove', function() {
+            showText.innerHTML = '当前坐标为(' + mouse.x + ',' + mouse.y + ')';
+        })
+
+        // 绘制小球
+        function drawBall (x , y) {
+            cxt.beginPath();
+            cxt.arc(x, y, 20, 0, 360 * Math.PI/180, true);
+            cxt.closePath();
+            cxt.fillStyle = '#6699FF';
+            cxt.fill();
+        }
+    }
+
+
+</script>
+</html>

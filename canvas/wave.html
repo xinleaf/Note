@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>波形运动</title>
+</head>
+<body>
+    <canvas id="xinleaf" width="500px" height="500px" style="border:1px solid #000;"></canvas>
+    <span id="text"></span>
+</body>
+<script src="./utils/tools.js"></script>
+<script src="./utils/ball.js"></script>
+<script>
+    window.onload = function () {
+        var cnv = $$('xinleaf');
+        var cxt = cnv.getContext('2d');
+        var showText = $$('text');
+        var mouse = tools.getMouse(cnv);
+        var key = tools.getKey()
+
+        var ball = new Ball(cnv.width/2, cnv.height/2);
+        var angle = 0;
+        var range = 0.5 ; // 振幅
+        (function frame() {
+            window.requestAnimationFrame(frame);
+            cxt.clearRect(0, 0, cnv.width, cnv.height);
+            // 作用于x轴-start
+            // ball.x = cnv.width/2 + Math.sin(angle) * range;
+            // 作用于x轴-end
+            // 作用于y轴-start
+            // ball.y = cnv.height/2 + Math.sin(angle) * range;
+            // 作用于y轴-end
+            // 作用于缩放属性-start
+            ball.scaleX = 1 + Math.sin(angle) * range;
+            ball.scaleY = 1 + Math.sin(angle) * range;
+            // 作用于缩放属性-end
+            ball.fill(cxt);
+            // 角度递增(决定速度)
+            angle += 0.05;
+        })();
+    }
+</script>
+</html>

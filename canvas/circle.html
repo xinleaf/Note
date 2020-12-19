@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>圆周运动</title>
+</head>
+<body>
+    <canvas id="xinleaf" width="500px" height="500px" style="border:1px solid #000;"></canvas>
+    <span id="text"></span>
+</body>
+<script src="./utils/tools.js"></script>
+<script src="./utils/ball.js"></script>
+<script>
+    window.onload = function () {
+        var cnv = $$('xinleaf');
+        var cxt = cnv.getContext('2d');
+        var showText = $$('text');
+        var mouse = tools.getMouse(cnv);
+        var key = tools.getKey()
+
+        // 实例化箭头
+        var ball = new Ball(100, 25);
+        var centerX = cnv.width/2;
+        var centerY = cnv.height/2;
+        // 正圆周运动-start
+        // var radius = 50;
+        // 正圆周运动-end
+        // 椭圆周运动-start
+        var radiusX = 60;
+        var radiusY = 40;
+        // 椭圆周运动-end
+        var angle = 0;
+        (function drawFrame() {
+            window.requestAnimationFrame(drawFrame);
+            cxt.clearRect(0, 0, cnv.width, cnv.height);
+            // 绘制圆形
+            // cxt.beginPath();
+            // cxt.arc(centerX, centerY, 50, 0, 360 * Math.PI/180, false);
+            // cxt.closePath();
+            // cxt.stroke();
+            // 计算小球坐标
+            // 正圆周运动-start
+            // ball.x = centerX + Math.cos(angle) * radius;
+            // ball.y = centerY + Math.sin(angle) * radius;
+            // 正圆周运动-end
+            // 椭圆周运动-start
+            ball.x = centerX + Math.cos(angle) * radiusX;
+            ball.y = centerY + Math.sin(angle) * radiusY;
+            // 椭圆周运动-end
+            ball.fill(cxt);
+            // 角度递增
+            angle += 0.05;
+        })();
+    }
+</script>
+</html>
